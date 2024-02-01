@@ -1,0 +1,11 @@
+
+<h1>{{ title }}</h1>
+<h2 *ngIf="winner && !draw">Winner: {{ winner}}</h2>
+
+<h2 *ngIf="draw && !winner"> Draw Game </h2>
+
+<button *ngIf="winner || draw" (click)="reset()">Reset</button>
+<main>
+  <app-square *ngFor="let v of board; let i = index" [val]="v" (click)="onClick(i)"/>
+</main>
+<router-outlet />
