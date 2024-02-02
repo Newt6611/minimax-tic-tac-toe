@@ -96,7 +96,7 @@ export class AppComponent {
     this.depth = 0;
   }
 
-  // When first time call minimax should pass a copied board
+  // When first time call minimax algo should pass a copied board
   bestMove() {
     const copiedBoard = Array.from(this.board);
     const res = this.minimaxService.do_algo(copiedBoard, "X", this.isWin, this.isDraw);

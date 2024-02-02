@@ -17,9 +17,6 @@ export class MinimaxService {
           player: string,
           isWin: (board: Array<any>) => string | null,
           isDraw: (board: Array<any>) => boolean) : MiniMaxResult {
-
-    // avalible index to click
-    const actions = this.getActions(board);
     const nextPlayer = player === "O" ? "X" : "O";
 
     // check whether any win or draw
@@ -40,11 +37,15 @@ export class MinimaxService {
     // for record current depth
     var curDepth = -1;
 
+    // avalible index to click
+    const actions = this.getActions(board);
+
     // loop for all posibility button to click
     actions.forEach((actionVal) => {
       board[actionVal] = player;
       const res: MiniMaxResult = this.do_algo(board, nextPlayer, isWin, isDraw);
       board[actionVal] = null;
+      console.log(res.BestScore);
 
       if (curDepth === -1) {
         curDepth = res.CurrentDepth + 1;
