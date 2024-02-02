@@ -4,12 +4,6 @@ import { SquareComponent } from "./square/square.component";
 import { CommonModule } from '@angular/common';
 import { MinimaxService } from './minimax.service';
 
-export interface MiniMaxResult {
-  CurrentDepth: number;
-  BestMoveIndex: number;
-  BestScore: number;
-}
-
 const BOARD_SIZE: number = 9;
 
 @Component({
