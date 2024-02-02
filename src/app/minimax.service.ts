@@ -16,7 +16,7 @@ export class MinimaxService {
   do_algo(board: Array<any>,
           player: string,
           isWin: (board: Array<any>) => string | null,
-          isDraw: (board: Array<any>) => boolean): MiniMaxResult {
+          isDraw: (board: Array<any>) => boolean) : MiniMaxResult {
 
     // avalible index to click
     const actions = this.getActions(board);
@@ -38,7 +38,7 @@ export class MinimaxService {
     // for searching shortest path to win
     var curBestDepth = Number.MAX_SAFE_INTEGER;
     // for record current depth
-    var currentDepth = -1;
+    var curDepth = -1;
 
     // loop for all posibility button to click
     actions.forEach((actionVal) => {
@@ -46,20 +46,20 @@ export class MinimaxService {
       const res: MiniMaxResult = this.do_algo(board, nextPlayer, isWin, isDraw);
       board[actionVal] = null;
 
-      if (currentDepth === -1) {
-        currentDepth = res.CurrentDepth + 1;
+      if (curDepth === -1) {
+        curDepth = res.CurrentDepth + 1;
       }
 
-      if (player === "O" && res.BestScore <= curBestValue && res.CurrentDepth < curBestDepth) {
+      if (player === "O" && res.BestScore < curBestValue) {
         curBestValue = res.BestScore;
         curBestMoveIndex = actionVal;
-      } else if (player === "X" && res.BestScore >= curBestValue && res.CurrentDepth < curBestDepth) {
+      } else if (player === "X" && res.BestScore > curBestValue) {
         curBestValue = res.BestScore;
         curBestMoveIndex = actionVal;
       }
     });
     return {
-      CurrentDepth: currentDepth,
+      CurrentDepth: curDepth,
       BestMoveIndex: curBestMoveIndex,
       BestScore: curBestValue,
     };
