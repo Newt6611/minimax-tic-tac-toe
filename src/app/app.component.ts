@@ -45,6 +45,9 @@ export class AppComponent {
 
     // if no winner, but it might be a draw game
     this.winner = this.isWin(this.board);
+    if (this.winner != null) {
+      return;
+    }
     if (this.winner === null) {
       this.draw = this.isDraw(this.board);
     }
@@ -56,22 +59,24 @@ export class AppComponent {
     }
   }
 
-  isWin(board: Array<any>) {
+  isWin(board: Array<any>) : string | null {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
+
       [0, 3, 6],
       [1, 4, 7],
       [2, 5, 8],
+
       [0, 4, 8],
-      [2, 4, 6]
+      [2, 4, 6],
     ];
 
     var win = null;
     lines.forEach((line) => {
       const [a, b, c] = line;
-      if (board[a] === board[b] && board[b] === board[c] && board[c] === board[a]) {
+      if (board[a] === board[b] && board[a] === board[c]) {
         win = board[a];
       }
     });
@@ -98,8 +103,12 @@ export class AppComponent {
 
   // When first time call minimax algo should pass a copied board
   bestMove() {
-    const copiedBoard = Array.from(this.board);
-    const res = this.minimaxService.do_algo(copiedBoard, "X", this.isWin, this.isDraw);
+    var copiedBoard = new Array(BOARD_SIZE).fill(null);
+    this.board.forEach((val, idx) => {
+      copiedBoard[idx] = val;
+    });
+
+    const res = this.minimaxService.do_algo(copiedBoard, "X", this.isWin);
     this.depth = res.CurrentDepth;
     return res.BestMoveIndex;
   }
