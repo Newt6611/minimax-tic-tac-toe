@@ -45,7 +45,6 @@ export class MinimaxService {
       board[actionVal] = player;
       const res: MiniMaxResult = this.do_algo(board, nextPlayer, isWin, isDraw);
       board[actionVal] = null;
-      console.log(res.BestScore);
 
       if (curDepth === -1) {
         curDepth = res.CurrentDepth + 1;
