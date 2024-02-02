@@ -24,12 +24,14 @@ export class AppComponent {
   board: Array<any>;
   winner: any;
   draw: boolean;
+  depth: number;
 
   constructor() {
     this.title = "Tic Tac Toe with minimax algo"
     this.currentPlayer = "O";
     this.draw = false;
     this.board = new Array<any>(BOARD_SIZE).fill(null);
+    this.depth = 0;
   }
 
   onClick(index: number) {
@@ -93,12 +95,14 @@ export class AppComponent {
     this.board = new Array<any>(BOARD_SIZE).fill(null);
     this.winner = null;
     this.draw = false;
+    this.depth = 0;
   }
 
   // When first time call minimax should pass a copied board
   bestMove() {
     const copiedBoard = Array.from(this.board);
     const res = this.minimax(copiedBoard, "X");
+    this.depth = res.CurrentDepth;
     return res.BestMoveIndex;
   }
 
